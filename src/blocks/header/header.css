@@ -1,0 +1,49 @@
+.header {
+  margin: 45px 200px 0;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  padding-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .header {
+    margin: 35px 0 0;
+    padding-bottom: 35px;
+  }
+}
+
+@media (max-width: 320px) {
+  .header {
+    margin: 28px 0 0;
+    padding-bottom: 31px;
+  }
+}
+
+.header-link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #A9A9A9;
+  text-decoration: none;
+  margin-left: 24px;
+  margin-right: 27px;
+}
+
+.header-link:hover {
+  opacity: 0.5;
+}
+
+.header-email{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #FFFFFF;
+  text-decoration: none;
+  margin-left: auto;
+}

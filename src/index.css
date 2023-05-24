@@ -1,0 +1,46 @@
+@import url(./vendor/normalize.css);
+@import url(./blocks/page/page.css);
+@import url(./vendor/fonts/fonts.css);
+
+@import url(./blocks/header/header.css);
+@import url(./blocks/header/__logo/header__logo.css);
+
+
+@import url(./blocks/content/content.css);
+
+@import url(./blocks/profile/profile.css);
+@import url(./blocks/profile/__avatar/profile__avatar.css);
+@import url(./blocks/profile/__info-name/profile__info-name.css);
+@import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__info-job/profile__info-job.css);
+@import url(./blocks/profile/__button-edit/profile__button-edit.css);
+@import url(./blocks/profile/__button-add/profile__button-add.css);
+
+@import url(./blocks/elements/elements.css);
+
+@import url(./blocks/element/element.css);
+@import url(./blocks/element/__foto/element__foto.css);
+@import url(./blocks/element/__text/element__text.css);
+@import url(./blocks/element/__like/element__like.css);
+@import url(./blocks/element/__container/element__container.css);
+@import url(./blocks/element/__like_active/element__like_active.css);
+@import url(./blocks/element/__number-like/element__number-like.css);
+@import url(./blocks/element/__delete/element__delete.css);
+
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/footer/__text/footer__text.css);
+
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/__container/popup__container.css);
+@import url(./blocks/popup/__container-image/popup__container-image.css);
+@import url(./blocks/popup/__close/popup__close.css);
+@import url(./blocks/popup/__foto/popup__foto.css);
+@import url(./blocks/popup/__text/popup__text.css);
+@import url(./blocks/popup/__content-text/popup__content-text.css);
+@import url(./blocks/popup/__input-form/popup__input-form.css);
+@import url(./blocks/popup/__submit/popup__submit.css);
+@import url(./blocks/popup/__submit/submit_disabled/popup__submit_disabled.css);
+@import url(./blocks/popup/__submit/submit_delete/submit_delete.css);
+@import url(./blocks/popup/_opened/popup_opened.css);
+
+@import url(./blocks/error/error.css);

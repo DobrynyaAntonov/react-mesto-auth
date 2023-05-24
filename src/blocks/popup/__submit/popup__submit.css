@@ -1,0 +1,73 @@
+.popup__submit {
+  width: 358px;
+  height: 50px;
+  cursor: pointer;
+  margin: 43px 36px 37px;
+  background: #000000;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  border: none;
+}
+
+.popup__submit:hover {
+  opacity: 0.8;
+
+}
+
+@media (max-width: 768px) {
+  .popup__submit {
+    width: 238px;
+    height: 46px;
+    margin: 49px 22px 25px;
+    padding: 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.popup__submit-auth {
+  width: 358px;
+  height: 50px;
+  cursor: pointer;
+  margin: 150px 36px 0;
+  background: #FFFFFF;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #000000;
+  border: none;
+}
+
+.popup__tooltip {
+  width: 358px;
+  height: 50px;
+  margin: 32px 36px 37px;
+  border-radius: 2px;
+  border: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+}
+
+@media (max-width: 768px) {
+  .popup__tooltip {
+    width: 238px;
+    height: 46px;
+    margin: 49px 22px 25px;
+    padding: 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

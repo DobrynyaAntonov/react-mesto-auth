@@ -1,0 +1,49 @@
+.popup__input-form {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 358px;
+  padding-bottom: 13px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  font-family: 'Inter', Arial, sans-serif;
+  margin-left: 35px;
+}
+
+.popup__input-form:nth-child(2n) {
+  margin-top: 25px;
+}
+
+@media (max-width: 768px) {
+  .popup__input-form {
+    width: 238px;
+    padding-bottom: 7px;
+    margin-left: 20px;
+  }
+  .popup__input-form:nth-child(2n) {
+    margin-top: 30px;
+  }
+}
+
+.popup__input-form.popup__input-form_type_error{
+  border-color: #FF0000;
+}
+
+.popup__input-form-auth {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #CCCCCC;
+  width: 358px;
+  padding-bottom: 13px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #CCCCCC;
+  font-family: 'Inter', Arial, sans-serif;
+  margin-left: 35px;
+  background: #000000;
+}

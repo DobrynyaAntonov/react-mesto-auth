@@ -1,0 +1,10 @@
+.profile__info {
+  width: 340px;
+}
+
+@media (max-width: 1040px) {
+  .profile__info {
+    grid-area: name;
+    width: 100%;
+  }
+}

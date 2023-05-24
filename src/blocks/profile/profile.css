@@ -1,0 +1,18 @@
+.profile {
+display: flex;
+}
+
+@media (max-width: 1040px) {
+  .profile {
+    display: grid;
+    grid-template-areas:
+    "foto foto"
+    "name edit"
+    "job job "
+    "add add";
+    grid-template-columns: 245px 35px;
+    justify-content: center;
+  }
+}
+
+
