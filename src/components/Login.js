@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import * as MestoAuth from '../MestoAuth.js';
+import * as MestoAuth from '../utils/auth.js';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ handleLogin }) {
@@ -11,36 +11,36 @@ function Login({ handleLogin }) {
         email: '',
         password: ''
     })
-    
-      const handleChange = (e) => {
+
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValue({
-          ...formValue,
-          [name]: value
+            ...formValue,
+            [name]: value
         });
-      }
-    
-      const handleSubmit = (e) => {
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         if (!formValue.password || !formValue.email) {
             return;
-          }
+        }
 
         const { password, email } = formValue;
 
         MestoAuth.authorize(password, email)
-          .then(data => {
-            if (data.token) {
-              localStorage.setItem('token', data.token);
-              handleLogin(email);
-              navigate('/card');
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+            .then(data => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    handleLogin(email);
+                    navigate('/');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     return (
         <div onSubmit={handleSubmit} className="popup__container-auth">
@@ -77,8 +77,8 @@ function Login({ handleLogin }) {
                     Войти
                 </button>
             </form>
-            </div >
-      
+        </div >
+
     );
 }
 

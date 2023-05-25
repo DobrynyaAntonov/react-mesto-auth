@@ -11,7 +11,7 @@ class Api {
   }
 
   //загрузка данных профиля
-  avatarInfo() {
+  getUserInfo() {
     return fetch(`${this._url}users/me`, {
       method: "GET",
       headers: this._headers
@@ -65,7 +65,7 @@ class Api {
   }
 
   //обновление аватара
-  avatar(link) {
+  setAvatar(link) {
     return fetch(`${this._url}users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,

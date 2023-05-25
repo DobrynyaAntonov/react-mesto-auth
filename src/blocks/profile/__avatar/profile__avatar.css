@@ -46,3 +46,12 @@
     grid-area: foto;
   }
 }
+
+
+
+@media (max-width: 1040px) {
+  .profile__button-avatar {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

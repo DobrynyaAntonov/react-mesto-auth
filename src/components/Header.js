@@ -3,13 +3,13 @@ import React from "react";
 import '../index.css';
 import { Link } from 'react-router-dom';
 
-function Header({path, text,  userData}) {
+function Header({ path, text, userData, loggedIn}) {
 
   function signOut() {
     localStorage.removeItem('token');
     // navigate('/sign-up');
   }
-  const {  email } = userData;
+  const { email } = userData;
   return (
     <header className="header">
       <img
@@ -18,7 +18,15 @@ function Header({path, text,  userData}) {
         alt="лого проекта mesto (Россия)"
       />
       <p className="header-email" >{email}</p>
-       <Link onClick={signOut} to={path} className="header-link">{text}</Link>
+      {loggedIn ? (
+        <Link onClick={signOut} to={path} className="header-link">
+          {text}
+        </Link>
+      ) : (
+        <Link to={path} className="header-link">
+          {text}
+        </Link>
+      )}
     </header>
   )
 }

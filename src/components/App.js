@@ -14,7 +14,7 @@ import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import { ProtectedRoute } from './ProtectedRoute'
-import * as MestoAuth from '../MestoAuth.js';
+import * as MestoAuth from '../utils/auth.js';
 
 function App() {
 
@@ -24,55 +24,58 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
-  const [loggedIn, setloggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
   const [userData, setUserData] = useState({ email: '' });
   const navigate = useNavigate();
 
   const handleLogin = ( email ) => {
-    setloggedIn(true);
+    setLoggedIn(true);
     setUserData({ email });
   }
 
 
-  const tokenCheck = () => {
+  const checkToken  = () => {
     const jwt = localStorage.getItem('token')
     if (jwt) {
       MestoAuth.getContent(jwt)
         .then(({data}) => {
           const email = data.email;
           handleLogin(email);
-          navigate('/card')
+          navigate('/')
         })
         .catch(err => console.log(err))
     }
   }
-
   useEffect(() => {
-    tokenCheck();
+    checkToken ();
   }, []);
   //переменные состояния для currentUser
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
   // эффект при монтировании компонента
   useEffect(() => {
-    api.avatarInfo().then((userInfo) => {
-      setCurrentUser(userInfo);
-    })
-      .catch((err) => {
-        console.log(err);
-      });
-
-  }, []);
+    if (loggedIn) {
+      api.getUserInfo()
+        .then((userInfo) => {
+          setCurrentUser(userInfo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
-    api.initialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (loggedIn) {
+      api.initialCards()
+        .then((res) => {
+          setCards(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -136,7 +139,7 @@ function App() {
   };
 
   function handleUpdateAvatar({ link }) {
-    api.avatar(link)
+    api.setAvatar(link)
       .then((newUserData) => {
         setCurrentUser(newUserData);
         handleClosePopups();
@@ -163,8 +166,8 @@ function App() {
 
 
         <Routes>
-          <Route path="/card" element={<>
-            <Header path='/sign-in' text='Выйти' userData={userData} />
+          <Route path="/" element={<>
+            <Header path='/sign-in' text='Выйти' userData={userData} loggedIn={loggedIn} />
             <ProtectedRoute element={Main}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
@@ -177,15 +180,17 @@ function App() {
             /></>} />
 
           <Route path='/sign-up' element={<>
-            <Header path='/sign-in' text='Войти' userData={''} />
+            <Header path='/sign-in' text='Войти' userData={''} loggedIn={loggedIn}/>
             <Register />
           </>} />
 
           <Route path='/sign-in' element={<>
-            <Header path='/sign-up' text='Регистрация' userData={''} />
+            <Header path='/sign-up' text='Регистрация' userData={''} loggedIn={loggedIn}/>
             <Login handleLogin={handleLogin} />
           </>} />
-          <Route path='/' element={loggedIn ? <Navigate to='/card' /> : <Navigate to='/sign-in' replace />} />
+          <Route path='/' element={loggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' replace />} />
+
+          <Route path="/*" element={<Navigate to={loggedIn ? '/sign-in' : '/'} replace />} />
 
         </Routes>
 

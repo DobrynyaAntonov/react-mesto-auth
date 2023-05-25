@@ -1,32 +1,25 @@
 import React from 'react';
-import './styles/Register.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import * as MestoAuth from '../MestoAuth.js';
+import * as MestoAuth from '../utils/auth.js';
 import InfoTooltip from './InfoTooltip'
 import no from '../images/неуспех.svg';
 import yes from '../images/успех.svg';
 
 function Register() {
 
-    const [isInfoTooltipPopupOpen, setisInfoTooltipPopupOpen] = useState(false);
-    const [image, setimage] = useState('');
+    const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+    const [tooltipImage, setTooltipImage] = useState('');
 
 
     const [text, setText] = useState('');
 
     function handleInfoTooltipClick() {
-        setisInfoTooltipPopupOpen(true);
+        setIsInfoTooltipPopupOpen(true);
     }
 
-    function handleClosePopup(data) {
-        if (typeof data != "string"){
-            setisInfoTooltipPopupOpen(false);
-            navigate('/sign-in')
-        } else {
-            setisInfoTooltipPopupOpen(false);
-        }
-       
+    function handleClosePopup() {
+            setIsInfoTooltipPopupOpen(false);
     }
 
 
@@ -53,14 +46,15 @@ function Register() {
         MestoAuth.register(password, email)
             .then(() => {
                 setText('Вы успешно зарегистрировались!')
-                handleInfoTooltipClick('next');
-                setimage(yes)
+                handleInfoTooltipClick();
+                setTooltipImage(yes)
+                navigate('/sign-in')
             })
             .catch((err) => {
                 console.log(err);
-                handleInfoTooltipClick(2);
+                handleInfoTooltipClick();
                 setText('Что-то пошло не так! Попробуйте ещё раз.')
-                setimage(no)
+                setTooltipImage(no)
             })
     }
     return (
@@ -104,7 +98,7 @@ function Register() {
                 <Link to="/sign-in" className='description-link'>Войти</Link>
             </div>
             <InfoTooltip
-                img={image}
+                img={tooltipImage}
                 isOpen={isInfoTooltipPopupOpen}
                 onClose={handleClosePopup}
                 text={text} />
