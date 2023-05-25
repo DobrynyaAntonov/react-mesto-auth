@@ -46,13 +46,11 @@ function Register() {
         MestoAuth.register(password, email)
             .then(() => {
                 setText('Вы успешно зарегистрировались!')
-                handleInfoTooltipClick();
                 setTooltipImage(yes)
                 navigate('/sign-in')
             })
             .catch((err) => {
                 console.log(err);
-                handleInfoTooltipClick();
                 setText('Что-то пошло не так! Попробуйте ещё раз.')
                 setTooltipImage(no)
             })
