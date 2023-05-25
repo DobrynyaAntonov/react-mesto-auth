@@ -10,15 +10,21 @@ function Register() {
 
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
     const [tooltipImage, setTooltipImage] = useState('');
+    const [isSuccessRegistration, setIsSuccessRegistration] = useState(false);
 
 
-    const [text, setText] = useState('');
+
+    const [tooltipText, setTooltipText] = useState('');
 
     function handleInfoTooltipClick() {
         setIsInfoTooltipPopupOpen(true);
     }
 
     function handleClosePopup() {
+        if (isSuccessRegistration) {
+            setIsInfoTooltipPopupOpen(false);
+            navigate('/sign-in');
+          }
             setIsInfoTooltipPopupOpen(false);
     }
 
@@ -45,14 +51,15 @@ function Register() {
         console.log(password, email)
         MestoAuth.register(password, email)
             .then(() => {
-                setText('Вы успешно зарегистрировались!')
+                setTooltipText('Вы успешно зарегистрировались!')
                 setTooltipImage(yes)
-                navigate('/sign-in')
+                setIsSuccessRegistration(true);
             })
             .catch((err) => {
                 console.log(err);
-                setText('Что-то пошло не так! Попробуйте ещё раз.')
+                setTooltipText('Что-то пошло не так! Попробуйте ещё раз.')
                 setTooltipImage(no)
+                setIsSuccessRegistration(false);
             })
     }
     return (
@@ -99,7 +106,7 @@ function Register() {
                 img={tooltipImage}
                 isOpen={isInfoTooltipPopupOpen}
                 onClose={handleClosePopup}
-                text={text} />
+                text={tooltipText} />
         </div >
 
     );

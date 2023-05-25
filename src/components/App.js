@@ -28,17 +28,17 @@ function App() {
   const [userData, setUserData] = useState({ email: '' });
   const navigate = useNavigate();
 
-  const handleLogin = ( email ) => {
+  const handleLogin = (email) => {
     setLoggedIn(true);
     setUserData({ email });
   }
 
 
-  const checkToken  = () => {
+  const checkToken = () => {
     const jwt = localStorage.getItem('token')
     if (jwt) {
-      MestoAuth.getContent(jwt)
-        .then(({data}) => {
+      MestoAuth.checkToken(jwt)
+        .then(({ data }) => {
           const email = data.email;
           handleLogin(email);
           navigate('/')
@@ -47,7 +47,7 @@ function App() {
     }
   }
   useEffect(() => {
-    checkToken ();
+    checkToken();
   }, []);
   //переменные состояния для currentUser
   const [currentUser, setCurrentUser] = useState({});
@@ -177,22 +177,26 @@ function App() {
               onEditAvatar={handleEditAvatarClick}
               onCardClick={handleCardClick}
               loggedIn={loggedIn}
-            /></>} />
+            />
+          </>} />
 
           <Route path='/sign-up' element={<>
-            <Header path='/sign-in' text='Войти' userData={''} loggedIn={loggedIn}/>
+            <Header path='/sign-in' text='Войти' userData={''} loggedIn={loggedIn} />
             <Register />
           </>} />
 
           <Route path='/sign-in' element={<>
-            <Header path='/sign-up' text='Регистрация' userData={''} loggedIn={loggedIn}/>
+            <Header path='/sign-up' text='Регистрация' userData={''} loggedIn={loggedIn} />
             <Login handleLogin={handleLogin} />
           </>} />
-          <Route path='/' element={loggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' replace />} />
 
-          <Route path="/*" element={<Navigate to={loggedIn ? '/sign-in' : '/'} replace />} />
-
+          {loggedIn ? (
+            <Route path="/*" element={<Navigate to='/' replace />} />
+          ) : (
+            <Route path="/*" element={<Navigate to='/sign-in' replace />} />
+          )}
         </Routes>
+
 
         <Footer />
         <EditProfilePopup
