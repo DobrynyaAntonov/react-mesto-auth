@@ -33,7 +33,6 @@ function App() {
     setUserData({ email });
   }
 
-
   const checkToken = () => {
     const jwt = localStorage.getItem('token')
     if (jwt) {
