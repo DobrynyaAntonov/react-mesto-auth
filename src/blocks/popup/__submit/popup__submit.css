@@ -31,10 +31,10 @@
 }
 
 .popup__submit-auth {
-  width: 358px;
+  width: 100%;
   height: 50px;
   cursor: pointer;
-  margin: 150px 36px 0;
+  margin: 150px 0 0;
   background: #FFFFFF;
   border-radius: 2px;
   font-style: normal;
@@ -63,7 +63,7 @@
 
 @media (max-width: 768px) {
   .popup__tooltip {
-    width: 238px;
+    width: 100%;
     height: 46px;
     margin: 49px 22px 25px;
     padding: 0;

@@ -36,7 +36,7 @@
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid #CCCCCC;
-  width: 358px;
+  width: 100%;
   padding-bottom: 13px;
   font-style: normal;
   font-weight: 400;
@@ -44,6 +44,6 @@
   line-height: 17px;
   color: #CCCCCC;
   font-family: 'Inter', Arial, sans-serif;
-  margin-left: 35px;
+  /* margin-left: 35px; */
   background: #000000;
 }
