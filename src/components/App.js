@@ -179,20 +179,20 @@ function App() {
             />
           </>} />
 
-          <Route path='/sign-up' element={<>
-            <Header path='/sign-in' text='Войти' userData={''} loggedIn={loggedIn} />
+          <Route path='/signup' element={<>
+            <Header path='/signin' text='Войти' userData={''} loggedIn={loggedIn} />
             <Register />
           </>} />
 
-          <Route path='/sign-in' element={<>
-            <Header path='/sign-up' text='Регистрация' userData={''} loggedIn={loggedIn} />
+          <Route path='/signin' element={<>
+            <Header path='/signup' text='Регистрация' userData={''} loggedIn={loggedIn} />
             <Login handleLogin={handleLogin} />
           </>} />
 
           {loggedIn ? (
             <Route path="/*" element={<Navigate to='/' replace />} />
           ) : (
-            <Route path="/*" element={<Navigate to='/sign-in' replace />} />
+            <Route path="/*" element={<Navigate to='/signin' replace />} />
           )}
         </Routes>
 
