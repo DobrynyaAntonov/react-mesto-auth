@@ -166,7 +166,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<>
-            <Header path='/sign-in' text='Выйти' userData={userData} loggedIn={loggedIn} />
+            <Header path='/signin' text='Выйти' userData={userData} loggedIn={loggedIn} />
             <ProtectedRoute element={Main}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
