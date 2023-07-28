@@ -17,11 +17,12 @@ import { ProtectedRoute } from './ProtectedRoute'
 import * as MestoAuth from '../utils/auth.js';
 
 function App() {
-
   // Переменные состояния для отображения попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [cardForDelete, setCardForDelete] = useState(null);
+
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false)
@@ -34,19 +35,26 @@ function App() {
   }
 
   const checkToken = () => {
-    const jwt = localStorage.getItem('token')
-    if (jwt) {
-      MestoAuth.checkToken(jwt)
-        .then(({ data }) => {
-          const email = data.email;
-          handleLogin(email);
+    MestoAuth.checkToken()
+      .then((data) => {
+        if (data) {
+          handleLogin(data.email);
+          setLoggedIn(true)
           navigate('/')
-        })
-        .catch(err => console.log(err))
-    }
+        } else {
+          setLoggedIn(false)
+        }
+      })
+      .catch((err) => { 
+        setLoggedIn(false);
+        console.log(err);
+       
+       })
+
   }
   useEffect(() => {
     checkToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //переменные состояния для currentUser
   const [currentUser, setCurrentUser] = useState({});
@@ -68,7 +76,7 @@ function App() {
     if (loggedIn) {
       api.initialCards()
         .then((res) => {
-          setCards(res);
+          setCards(res.reverse());
         })
         .catch((err) => {
           console.log(err);
@@ -78,7 +86,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(userId => userId === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
@@ -90,7 +98,11 @@ function App() {
       });
   }
 
-  function handleCardDelete(card) {
+  function handleCardDeleteClick(card) {
+    setCardForDelete(card)
+  }
+
+  function cardDelete(card) {
     api.deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
@@ -124,6 +136,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
+    setCardForDelete(null);
   }
 
   function handleUpdateUser(userData) {
@@ -159,6 +172,12 @@ function App() {
       });
   };
 
+  function handleSubmitDeleteCard (event) {
+    event.preventDefault()
+    cardDelete(cardForDelete)
+    setCardForDelete(null)
+  };
+
   return (
     <>
       <CurrentUserContext.Provider value={currentUser}>
@@ -169,7 +188,7 @@ function App() {
             <Header path='/signin' text='Выйти' userData={userData} loggedIn={loggedIn} />
             <ProtectedRoute element={Main}
               onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardDelete={handleCardDeleteClick}
               cards={cards}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
@@ -214,8 +233,13 @@ function App() {
           onClose={handleClosePopups}
           onUpdateAvatar={handleUpdateAvatar} />
 
-        <PopupWithForm name="delete" title="Вы уверены?" buttonText="Да">
-        </PopupWithForm>
+        <PopupWithForm
+          isOpen={!!cardForDelete}
+          name="delete"
+          title="Вы уверены?"
+          buttonText="Да"
+          onClose={handleClosePopups}
+          onSubmit={handleSubmitDeleteCard} />
         <ImagePopup
 
           card={selectedCard}

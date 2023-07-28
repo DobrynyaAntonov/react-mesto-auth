@@ -30,12 +30,9 @@ function Login({ handleLogin }) {
         const { password, email } = formValue;
 
         MestoAuth.authorize(password, email)
-            .then(data => {
-                if (data.token) {
-                    localStorage.setItem('token', data.token);
-                    handleLogin(email);
-                    navigate('/');
-                }
+            .then(() => {
+                handleLogin(email);
+                navigate('/');
             })
             .catch(err => {
                 console.log(err);

@@ -1,4 +1,4 @@
-export const BASE_URL = "https://auth.nomoreparties.co";
+export const BASE_URL = "https://api.mesto.dobrynya.nomoredomains.xyz";
 
 const getResponseData = (res) => {
     if (!res.ok) {
@@ -10,6 +10,7 @@ const getResponseData = (res) => {
 export const register = (password, email) => {
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             "Content-Type": "application/json"
         },
@@ -18,30 +19,42 @@ export const register = (password, email) => {
             email: email
         })
     })
-    .then(getResponseData);
+        .then(getResponseData);
 };
 
 export const authorize = (password, email) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
             password: password,
             email: email
-        })
+        }),
     })
-    .then(getResponseData);
+        .then(getResponseData);
 };
 
-export const checkToken = (checkToken) => {
+export const checkToken = () => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${checkToken}`,
         },
     })
-    .then(getResponseData);
+        .then(getResponseData);
+};
+
+export const deleteCookie = () => {
+    return fetch(`${BASE_URL}/loginout`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(getResponseData);
 };

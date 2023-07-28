@@ -2,11 +2,14 @@ import logo from '../images/logo/logo.svg';
 import React from "react";
 import '../index.css';
 import { Link } from 'react-router-dom';
+import * as MestoAuth from '../utils/auth.js';
 
 function Header({ path, text, userData, loggedIn}) {
 
-  function signOut() {
-    localStorage.removeItem('token');
+  function 
+  signOut() {
+    MestoAuth.deleteCookie();
+    // localStorage.removeItem('token');
     // navigate('/sign-up');
   }
   const { email } = userData;

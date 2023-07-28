@@ -12,22 +12,25 @@ class Api {
 
   //загрузка данных профиля
   getUserInfo() {
-    return fetch(`${this._url}users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
+      credentials: 'include',
       headers: this._headers
     }).then(this._checkResponse);
   }
   //загрузка карточек на страницу
   initialCards() {
-    return fetch(`${this._url}cards`, {
+    return fetch(`${this._url}/cards`, {
       method: "GET",
+      credentials: 'include',
       headers: this._headers
     }).then(this._checkResponse);
   }
   //сохранение данных профиля
   editUserInfo(name, about) {
-    return fetch(`${this._url}users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -37,8 +40,9 @@ class Api {
   }
   //добавление новых карточек
   addCard(name, link) {
-    return fetch(`${this._url}cards`, {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -48,8 +52,9 @@ class Api {
   }
   //удаление карточки
   deleteCard(cardId) {
-    return fetch(`${this._url}cards/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then(this._checkResponse);
   }
@@ -57,8 +62,9 @@ class Api {
   changeLikeCardStatus(cardId, isLiked) {
     const method = isLiked ? 'PUT' : 'DELETE';
 
-    return fetch(`${this._url}cards/${cardId}/Likes`, {
+    return fetch(`${this._url}/cards/${cardId}/Likes`, {
       method,
+      credentials: 'include',
       headers: this._headers
     })
       .then(this._checkResponse);
@@ -66,8 +72,9 @@ class Api {
 
   //обновление аватара
   setAvatar(link) {
-    return fetch(`${this._url}users/me/avatar`, {
+    return fetch(`${this._url}/users/me/avatar`,{
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar: link
@@ -77,10 +84,9 @@ class Api {
 }
 
 const api = new Api({
-  url: 'https://nomoreparties.co/v1/cohort-62/',
+  url: "https://api.mesto.dobrynya.nomoredomains.xyz",
   headers: {
-    "content-type": "application/json",
-    Authorization: '9628d3d6-8ccc-41bd-966b-650c10695cc6'
+    "content-type": "application/json"
   }
 })
 

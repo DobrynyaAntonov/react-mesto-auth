@@ -23,7 +23,7 @@ function Register() {
     function handleClosePopup() {
         if (isSuccessRegistration) {
             setIsInfoTooltipPopupOpen(false);
-            navigate('/sign-in');
+            navigate('/signin');
           }
             setIsInfoTooltipPopupOpen(false);
     }
@@ -100,7 +100,7 @@ function Register() {
 
             <div className='description'>
                 <p >Уже зарегистрированы?</p>
-                <Link to="/sign-in" className='description-link'>Войти</Link>
+                <Link to="/signin" className='description-link'>Войти</Link>
             </div>
             <InfoTooltip
                 img={tooltipImage}
