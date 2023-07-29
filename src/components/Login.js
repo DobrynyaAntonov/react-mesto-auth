@@ -2,10 +2,28 @@ import React from 'react';
 import { useState } from 'react';
 import * as MestoAuth from '../utils/auth.js';
 import { useNavigate } from 'react-router-dom';
+import no from '../images/неуспех.svg';
+import InfoTooltip from './InfoTooltip'
 
 function Login({ handleLogin }) {
 
+    const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+    const [tooltipImage, setTooltipImage] = useState('');
+    const [tooltipText, setTooltipText] = useState('');
+    const [isSuccessRegistration, setIsSuccessRegistration] = useState(false);
+
     const navigate = useNavigate();
+
+    function handleInfoTooltipClick() {
+        if (isSuccessRegistration) {
+            setIsInfoTooltipPopupOpen(false);
+          }
+            return;
+    }
+
+    function handleClosePopup() {
+                setIsInfoTooltipPopupOpen(false);
+    }
 
     const [formValue, setFormValue] = useState({
         email: '',
@@ -33,8 +51,12 @@ function Login({ handleLogin }) {
             .then(() => {
                 handleLogin(email);
                 navigate('/');
+                setIsSuccessRegistration(true);
             })
             .catch(err => {
+                setIsInfoTooltipPopupOpen(true);
+                setTooltipText('Неверный логин или пароль. Проверьте данные и повторите попытку снова.');
+                setTooltipImage(no);
                 console.log(err);
             });
     }
@@ -70,10 +92,15 @@ function Login({ handleLogin }) {
 
                 />
                 <span id="input-job-error" className="error" />
-                <button className="popup__submit-auth" type="submit">
+                <button onClick={handleInfoTooltipClick} className="popup__submit-auth" type="submit">
                     Войти
                 </button>
             </form>
+            <InfoTooltip
+                img={tooltipImage}
+                isOpen={isInfoTooltipPopupOpen}
+                onClose={handleClosePopup}
+                text={tooltipText} />
         </div >
 
     );
